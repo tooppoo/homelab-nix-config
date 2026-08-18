@@ -8,11 +8,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  nix.nixPath = [
-    "nixos-config=/home/philomagi/homelab-nix-config/configuration.nix"
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-  ];
-
   networking.hostName = "philomagi-homelab";
 
   time.timeZone = "Asia/Tokyo";
