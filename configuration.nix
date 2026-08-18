@@ -45,6 +45,12 @@
     enable = true;
     allowedTCPPorts = [ 22 ];
   };
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
   system.stateVersion = "26.05";
 }
 
