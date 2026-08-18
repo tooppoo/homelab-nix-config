@@ -28,6 +28,8 @@
     tmux
     vim
     wget
+    pass
+    gnupg
   ];
 
   services.openssh = {
