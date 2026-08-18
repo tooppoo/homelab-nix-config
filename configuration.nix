@@ -30,6 +30,7 @@
     wget
     pass
     gnupg
+    bws
   ];
 
   services.openssh = {
