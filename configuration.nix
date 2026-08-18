@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -11,6 +11,11 @@
   networking.hostName = "philomagi-homelab";
 
   time.timeZone = "Asia/Tokyo";
+
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "bws"
+    ];
 
   users.users.philomagi = {
     isNormalUser = true;
