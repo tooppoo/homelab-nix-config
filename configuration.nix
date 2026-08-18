@@ -7,6 +7,8 @@
 
   networking.hostName = "philomagi-homelab";
 
+  time.timeZone = "Asia/Tokyo";
+
   users.users.philomagi = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
@@ -21,6 +23,8 @@
     ripgrep
     jq
     tmux
+    vim
+    wget
   ];
 
   services.openssh = {
