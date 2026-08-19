@@ -79,6 +79,8 @@
   
     serviceConfig = {
       Type = "oneshot";
+      RemainAfterExit = true;
+  
       User = "homelab-secrets";
       Group = "homelab-secrets";
   
@@ -93,7 +95,8 @@
   
     script = ''
       umask 077
-      ${pkgs.pass}/bin/pass show cloudflare/tunnel-token \
+  
+      ${pkgs.pass}/bin/pass show cloudflare/homelab-tunnel \
         > /run/cloudflared/token
     '';
   };
