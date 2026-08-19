@@ -36,6 +36,7 @@
     pass
     gnupg
     bws
+    cloudflared
   ];
 
   services.openssh = {
@@ -61,6 +62,56 @@
     "nix-command"
     "flakes"
   ];
+
+  users.users.homelab-secrets = {
+    isSystemUser = true;
+    group = "homelab-secrets";
+    home = "/var/lib/homelab-secrets";
+    createHome = true;
+  };
+  users.groups.homelab-secrets = {};
+
+  systemd.services.cloudflared-secret = {
+    description = "Prepare Cloudflare Tunnel token";
+  
+    before = [ "cloudflared.service" ];
+    requiredBy = [ "cloudflared.service" ];
+  
+    serviceConfig = {
+      Type = "oneshot";
+      RuntimeDirectory = "cloudflared";
+      RuntimeDirectoryMode = "0700";
+    };
+  
+    script = ''
+      umask 077
+      ${pkgs.pass}/bin/pass show cloudflare/homelab-tunnel \
+        > /run/cloudflared/token
+    '';
+  };
+
+  systemd.services.cloudflared = {
+    description = "Cloudflare Tunnel";
+  
+    wantedBy = [ "multi-user.target" ];
+  
+    after = [
+      "network-online.target"
+      "cloudflared-secret.service"
+    ];
+  
+    wants = [
+      "network-online.target"
+    ];
+  
+    serviceConfig = {
+      ExecStart =
+        "${pkgs.cloudflared}/bin/cloudflared tunnel run "
+        + "--token-file /run/cloudflared/token";
+  
+      Restart = "on-failure";
+    };
+  };
 
   system.stateVersion = "26.05";
 }
