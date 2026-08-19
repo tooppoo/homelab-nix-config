@@ -79,13 +79,21 @@
   
     serviceConfig = {
       Type = "oneshot";
+      User = "homelab-secrets";
+      Group = "homelab-secrets";
+  
       RuntimeDirectory = "cloudflared";
       RuntimeDirectoryMode = "0700";
     };
   
+    environment = {
+      GNUPGHOME = "/var/lib/homelab-secrets/gnupg";
+      PASSWORD_STORE_DIR = "/var/lib/homelab-secrets/password-store";
+    };
+  
     script = ''
       umask 077
-      ${pkgs.pass}/bin/pass show cloudflare/homelab-tunnel \
+      ${pkgs.pass}/bin/pass show cloudflare/tunnel-token \
         > /run/cloudflared/token
     '';
   };
@@ -100,9 +108,7 @@
       "cloudflared-secret.service"
     ];
   
-    wants = [
-      "network-online.target"
-    ];
+    wants = [ "network-online.target" ];
   
     serviceConfig = {
       ExecStart =
