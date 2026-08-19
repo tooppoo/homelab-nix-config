@@ -96,7 +96,7 @@
     script = ''
       umask 077
   
-      ${pkgs.pass}/bin/pass show cloudflare/homelab-tunnel \
+      ${pkgs.pass}/bin/pass show cloudflare/tunnel-token \
         > /run/cloudflared/token
     '';
   };
