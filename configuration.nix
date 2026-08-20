@@ -37,6 +37,7 @@
     gnupg
     bws
     cloudflared
+    podman
   ];
 
   systemd.sleep.settings.Sleep = {
