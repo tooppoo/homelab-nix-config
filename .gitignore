@@ -3,3 +3,7 @@ result/
 nixos.qcow2
 
 hardware-configuration.nix
+
+.claude/
+.agents/
+.codex/
