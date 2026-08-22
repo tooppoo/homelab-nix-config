@@ -5,6 +5,8 @@
 
   programs.bash.enable = true;
 
+  xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
+
   home.shellAliases = {
     ll = "ls -al";
     vi = "nvim";
