@@ -7,7 +7,8 @@
 
   home.shellAliases = {
     ll = "ls -al";
-    vi = "vim";
+    vi = "nvim";
+
     rebuild = ''
     sudo systemd-run \
       --unit=nixos-rebuild-detached \
@@ -19,10 +20,8 @@
       -I home-manager=/nix/var/nix/profiles/per-user/root/channels/home-manager \
       -I nixos-config=/etc/nixos/configuration.nix
     '';
-    rebuild-status =
-      "sudo journalctl -b -u nixos-rebuild-detached.service --since '-10 minutes' --no-pager";
-    switch-status =
-      "sudo journalctl -b -u nixos-switch-detached.service --since '-10 minutes' --no-pager";
+    rebuild-status = "sudo journalctl -fu nixos-rebuild-detached.service";
+
     switch = ''
     sudo systemd-run \
       --unit=nixos-switch-detached \
@@ -33,8 +32,9 @@
       -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos \
       -I home-manager=/nix/var/nix/profiles/per-user/root/channels/home-manager \
       -I nixos-config=/etc/nixos/configuration.nix
-
     '';
+    switch-status = "sudo journalctl -fu nixos-switch-detached.service";
+
     bwss = "BWS_ACCESS_TOKEN=$(pass bws/token) bws";
     bws-run = "bwss run --project-id=$(pass bws/project-id)";
 

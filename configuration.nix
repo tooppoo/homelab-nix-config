@@ -34,7 +34,7 @@
     ripgrep
     jq
     tmux
-    vim
+    neovim
     wget
     pass
     gnupg
