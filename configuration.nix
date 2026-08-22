@@ -3,7 +3,10 @@
 {
   imports = [
     ./hardware-configuration.nix
+    <home-manager/nixos>
   ];
+
+  home-manager.users.philomagi = import ./home.nix;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -3,6 +3,43 @@
 {
   home.stateVersion = "26.05";
 
+  programs.bash.enable = true;
+
+  home.shellAliases = {
+    ll = "ls -al";
+    vi = "vim";
+    rebuild = ''
+    sudo systemd-run \
+      --unit=nixos-rebuild-detached \
+      --collect \
+      --no-block \
+      --setenv=PATH=/run/wrappers/bin:/run/current-system/sw/bin \
+      /run/current-system/sw/bin/nixos-rebuild test \
+      -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos \
+      -I home-manager=/nix/var/nix/profiles/per-user/root/channels/home-manager \
+      -I nixos-config=/etc/nixos/configuration.nix
+    '';
+    rebuild-status =
+      "sudo journalctl -b -u nixos-rebuild-detached.service --since '-10 minutes' --no-pager";
+    switch-status =
+      "sudo journalctl -b -u nixos-switch-detached.service --since '-10 minutes' --no-pager";
+    switch = ''
+    sudo systemd-run \
+      --unit=nixos-switch-detached \
+      --collect \
+      --no-block \
+      --setenv=PATH=/run/wrappers/bin:/run/current-system/sw/bin \
+      /run/current-system/sw/bin/nixos-rebuild switch \
+      -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos \
+      -I home-manager=/nix/var/nix/profiles/per-user/root/channels/home-manager \
+      -I nixos-config=/etc/nixos/configuration.nix
+
+    '';
+    bwss = "BWS_ACCESS_TOKEN=$(pass bws/token) bws";
+    bws-run = "bwss run --project-id=$(pass bws/project-id)";
+
+  };
+
   programs.git = {
     enable = true;
 
