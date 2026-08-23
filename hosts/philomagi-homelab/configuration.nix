@@ -1,5 +1,18 @@
 { config, pkgs, lib, ... }:
 
+let
+  podmanDevcontainerCompat = pkgs.runCommand "podman-devcontainer-compat" { } ''
+    mkdir -p $out/bin
+    ln -s ${config.virtualisation.podman.package}/bin/podman $out/bin/docker
+    ln -s ${pkgs.podman-compose}/bin/podman-compose $out/bin/docker-compose
+  '';
+
+  devcontainerWithPodman = pkgs.devcontainer.override {
+    docker = podmanDevcontainerCompat;
+    docker-compose = podmanDevcontainerCompat;
+  };
+in
+
 {
   imports = [
     ./hardware-configuration.nix
@@ -37,8 +50,10 @@
     gnupg
     bws
     cloudflared
-    podman
+    devcontainerWithPodman
   ];
+
+  virtualisation.podman.enable = true;
 
   systemd.sleep.settings.Sleep = {
     AllowSuspend = "no";
