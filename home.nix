@@ -17,8 +17,9 @@
       --collect \
       --no-block \
       --setenv=PATH=/run/wrappers/bin:/run/current-system/sw/bin \
+      --setenv=SUDO_UID=$UID \
       /run/current-system/sw/bin/nixos-rebuild test \
-      --flake /home/philomagi/homelab-nix-config      
+      --flake /home/philomagi/homelab-nix-config
     '';
     rebuild-status = "sudo journalctl -fu nixos-rebuild-detached.service";
 
@@ -28,8 +29,9 @@
       --collect \
       --no-block \
       --setenv=PATH=/run/wrappers/bin:/run/current-system/sw/bin \
+      --setenv=SUDO_UID=$UID \
       /run/current-system/sw/bin/nixos-rebuild switch \
-      --flake /home/philomagi/homelab-nix-config      
+      --flake /home/philomagi/homelab-nix-config
     '';
     switch-status = "sudo journalctl -fu nixos-switch-detached.service";
 
