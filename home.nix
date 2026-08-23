@@ -38,6 +38,7 @@
     bwss = "BWS_ACCESS_TOKEN=$(pass bws/token) bws";
     bws-run = "bwss run --project-id=$(pass bws/project-id)";
 
+    reload = "source ~/.bashrc";
   };
 
   programs.git = {
