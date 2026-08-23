@@ -18,9 +18,7 @@
       --no-block \
       --setenv=PATH=/run/wrappers/bin:/run/current-system/sw/bin \
       /run/current-system/sw/bin/nixos-rebuild test \
-      -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos \
-      -I home-manager=/nix/var/nix/profiles/per-user/root/channels/home-manager \
-      -I nixos-config=/etc/nixos/configuration.nix
+      --flake /home/philomagi/homelab-nix-config      
     '';
     rebuild-status = "sudo journalctl -fu nixos-rebuild-detached.service";
 
@@ -31,9 +29,7 @@
       --no-block \
       --setenv=PATH=/run/wrappers/bin:/run/current-system/sw/bin \
       /run/current-system/sw/bin/nixos-rebuild switch \
-      -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos \
-      -I home-manager=/nix/var/nix/profiles/per-user/root/channels/home-manager \
-      -I nixos-config=/etc/nixos/configuration.nix
+      --flake /home/philomagi/homelab-nix-config      
     '';
     switch-status = "sudo journalctl -fu nixos-switch-detached.service";
 
