@@ -1,5 +1,27 @@
 {
   "nodes": {
+    "herdr": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1787830224,
+        "narHash": "sha256-hCh01iJJalF8g9pavFHIN4kFQiiCnhfwaNJ9Weevj6c=",
+        "owner": "herdrdev",
+        "repo": "herdr",
+        "rev": "7b675f42af35508eab66ac42fe1598628597a893",
+        "type": "github"
+      },
+      "original": {
+        "owner": "herdrdev",
+        "ref": "master",
+        "repo": "herdr",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -21,6 +43,27 @@
         "type": "github"
       }
     },
+    "iwaya": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787554195,
+        "narHash": "sha256-bB+7bz5de4s2PfptX+xmfBiUy+G/W85zU/3bgbDnVE0=",
+        "owner": "tooppoo",
+        "repo": "iwaya",
+        "rev": "86cbc3c06ee121e06c17ceb5123202c792cd1192",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tooppoo",
+        "ref": "main",
+        "repo": "iwaya",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1787204541,
@@ -39,8 +82,31 @@
     },
     "root": {
       "inputs": {
+        "herdr": "herdr",
         "home-manager": "home-manager",
+        "iwaya": "iwaya",
         "nixpkgs": "nixpkgs"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "herdr",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783577481,
+        "narHash": "sha256-EWMxOWrJ031f8f/lrcEmhTRs4npw1/5N3Hcjin846c8=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "4cdea398dc491b082dccdce0fad1ed0b75fa3394",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     }
   },
